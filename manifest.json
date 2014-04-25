@@ -1,0 +1,16 @@
+{
+    "name": "TabFixer",
+    "version": "1.0",
+    "manifest_version": 2,
+    "description": "Open all url with pinned",
+    "permissions": [
+        "tabs",
+        "bookmarks",
+        "contextMenus",
+        "http://*/*",
+        "https://*/*"
+    ],
+    "chrome_url_overrides": {
+        "newtab": "bg.html"
+    }
+}
