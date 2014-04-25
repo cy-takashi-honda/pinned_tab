@@ -6,8 +6,8 @@ window.onload = function() {
         localStorage['bookmark_dir'] = document.querySelector('#bookmark_dir').value;
         var urls = action(false);
     });
-    if (typeof(localStorage['bookmark_dir']) !== 'undefined') {
-        document.querySelector('#bookmark_dir').value = localStorage['bookmark_dir'];
+    if (isset(localStorage, 'bookmark_dir')) {
+        document.querySelector('#bookmark_dir').value = localStorage['bookmark_dir'];   
     }
 };
 
@@ -16,18 +16,13 @@ var action = function(isOpen) {
     chrome.bookmarks.getTree(function(roots){
 
         var TARGET = document.querySelector('#bookmark_dir').value;
+        console.log(TARGET);
 
         localStorage['bookmark_dir'] = TARGET;
 
-        if (isOpen === true) {
-            localStorage['is_open'] = 'TRUE';
-        } else {
-            localStorage['is_open'] = 'FALSE';
-        }
-
         var bookmarkBar = roots[0].children[0];
 
-        if (typeof(bookmarkBar.children) === 'undefined') {
+        if (isset(bookmarkBar, 'children') !== true) {
             return false;
         }
 
@@ -36,6 +31,7 @@ var action = function(isOpen) {
         var urls = new Array();
 
         searcher(childrens);
+        console.log(targetBookMark);
 
         if (targetBookMark.length === 0) {
             localStorage['bookmark_dir'] = '';
@@ -73,6 +69,17 @@ var action = function(isOpen) {
             document.querySelector('#url_collection').style.display = 'block';
         }
 
+        function searcher(node){
+            var ret = new Array();
+            for (var key in node) {
+                if (node[key].title === TARGET) {
+                    targetBookMark.push(node[key]);
+                }
+                if (node[key].children) {
+                    searcher(node[key].children);
+                }
+            }
+        }
 
         function parser(dir) {
             for (var key in dir) {
@@ -83,17 +90,14 @@ var action = function(isOpen) {
                 }
             }
         }
-
-        function searcher(node){
-            for (var key in node) {
-                if (node[key].title === TARGET) {
-                    targetBookMark.push(node[key]);
-                }
-                if (node[key].children) {
-                    searcher(node[key].children);
-                }
-            }
-        }
     });
+}
+
+
+var isset = function(arr, key) {
+    if (typeof(arr[key]) !== 'undefined') {
+        return true;
+    }
+    return false;
 }
 
