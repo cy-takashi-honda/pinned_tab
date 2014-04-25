@@ -16,7 +16,6 @@ var action = function(isOpen) {
     chrome.bookmarks.getTree(function(roots){
 
         var TARGET = document.querySelector('#bookmark_dir').value;
-        console.log(TARGET);
 
         localStorage['bookmark_dir'] = TARGET;
 
@@ -31,7 +30,6 @@ var action = function(isOpen) {
         var urls = new Array();
 
         searcher(childrens);
-        console.log(targetBookMark);
 
         if (targetBookMark.length === 0) {
             localStorage['bookmark_dir'] = '';
