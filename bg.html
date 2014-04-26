@@ -5,11 +5,9 @@
     <title>New Tab</title>
     <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="css/bg.css">
-    <script src="script/const.js"></script>
-    <script src="script/redirect.js"></script>
 </head>
 <body>
-    <article class="container">
+    <article id="open_tabs" class="container show">
         <header class="page-header">
             <h1>New Tab</h1>
         </header>
@@ -35,6 +33,18 @@
             </div>
         </section>
     </article>
+    <article id="edit_me_zone" class="container hide">
+        <!-- ==== put on your code... ==== -->
+        <section>
+            <div id="timer_zone">
+                <span id="hour"></span>:
+                <span id="min"></span>:
+                <span id="sec"></span>
+            </div>
+        </section>
+        <!-- ============================= -->
+    </article>
+<script src="script/editme.js"></script>
 <script src="script/main.js"></script>
 </body>
 </html>

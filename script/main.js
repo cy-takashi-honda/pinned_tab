@@ -1,16 +1,3 @@
-window.onload = function() {
-    document.querySelector('#pinned_tab').addEventListener('click', function() {
-        action(true);
-    });
-    document.querySelector('#save_dir').addEventListener('click', function() {
-        localStorage['bookmark_dir'] = document.querySelector('#bookmark_dir').value;
-        var urls = action(false);
-    });
-    if (isset(localStorage, 'bookmark_dir')) {
-        document.querySelector('#bookmark_dir').value = localStorage['bookmark_dir'];   
-    }
-};
-
 var action = function(isOpen) {
 
     chrome.bookmarks.getTree(function(roots){
@@ -89,7 +76,17 @@ var action = function(isOpen) {
             }
         }
     });
-}
+};
+
+var history = function(r) {
+    if (r.length === 1) {
+        document.querySelector('#open_tabs').classList.remove('show');
+        document.querySelector('#open_tabs').classList.add('hide');
+        document.querySelector('#edit_me_zone').classList.remove('hide');
+        document.querySelector('#edit_me_zone').classList.add('show');
+        editMe();
+    }
+};
 
 
 var isset = function(arr, key) {
@@ -97,5 +94,22 @@ var isset = function(arr, key) {
         return true;
     }
     return false;
-}
+};
+
+window.onload = function() {
+    document.querySelector('#pinned_tab').addEventListener('click', function() {
+        action(true);
+    });
+    document.querySelector('#save_dir').addEventListener('click', function() {
+        localStorage['bookmark_dir'] = document.querySelector('#bookmark_dir').value;
+        var urls = action(false);
+    });
+    if (isset(localStorage, 'bookmark_dir')) {
+        document.querySelector('#bookmark_dir').value = localStorage['bookmark_dir'];   
+    }
+
+    chrome.tabs.query({'url': localStorage['first_url']}, function(r){
+        history(r);
+    });
+};
 

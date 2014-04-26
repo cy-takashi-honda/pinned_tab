@@ -1,1 +1,0 @@
-const REDIRECT = 'https://www.google.co.jp/'
