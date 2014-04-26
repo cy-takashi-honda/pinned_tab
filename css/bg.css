@@ -59,6 +59,15 @@ img.thumbnail_img:hover {
 
 #edit_me_zone section  #timer_zone {
     font-family: 'Lato', 'sans-serif';
+    margin: 10% 10%;
+}
+
+#edit_me_zone section  #timer_zone #timer_date{
+    font-size: 3em;
+    height: 120px;
+    margin: 5% auto;
+}
+
+#edit_me_zone section  #timer_zone #timer_time{
     font-size: 14em;
-    margin: 30% 10%;
 }
